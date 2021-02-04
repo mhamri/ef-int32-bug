@@ -4,6 +4,8 @@
 
 1. run this command: `dotnet ef database update`
 
+1. run the application
+
 1. use any of below links
 
    - in `StoresProjectedController.cs` using automapper for projection to `IQueryable`. it throws error.
