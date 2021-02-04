@@ -1,0 +1,14 @@
+## use this file with vscode extension rest client `humao.rest-client`
+
+GET http://localhost:63273/odata/Stores?$select=id,owner&$expand=owner HTTP/1.1
+
+
+###
+GET http://localhost:63273/odata/StoresProjected?$select=id HTTP/1.1
+
+
+###
+GET http://localhost:63273/odata/StoresProjected?$select=Id&$expand=owner($select=id) HTTP/1.1
+
+###
+GET http://localhost:63273/odata/StoresSimple?$select=Id&$expand=owner($select=id) HTTP/1.1
