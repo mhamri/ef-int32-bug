@@ -1,4 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Linq.Expressions;
+using AgileObjects.ReadableExpressions;
 using AutoMapper;
 using LinqKit;
 using Microsoft.AspNetCore.Http;
@@ -30,7 +35,10 @@ namespace Research.Dotnet5AndOdata.Controllers
         {
             AddSampleDataToDb();
             var result = _context.Stores.AsQueryable();
+
             var resultModel = _mapper.ProjectTo<StoreModel>(result);
+
+            Console.WriteLine(resultModel.Expression.ToReadableString());
 
             return Ok(resultModel);
         }
