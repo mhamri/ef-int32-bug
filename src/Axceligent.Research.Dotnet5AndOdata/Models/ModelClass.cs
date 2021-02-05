@@ -47,7 +47,8 @@ namespace Research.Dotnet5AndOdata.Models
 
         public PersonModel Owner { get; set; }
 
-        public IEnumerable<BookStoreModel> BookStore { get; set; }
+        public ICollection<BookModel> Books { get; set; }
+        public ICollection<BookStoreModel> BookStore { get; set; }
 
     }
 }
