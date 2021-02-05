@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using AgileObjects.ReadableExpressions;
-using AutoMapper;
 using LinqKit;
+using Mapster;
+using MapsterMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.OData.Query;
+using Microsoft.EntityFrameworkCore;
 using Research.Dotnet5AndOdata.Db;
 using Research.Dotnet5AndOdata.Entities;
 using Research.Dotnet5AndOdata.Models;
@@ -19,12 +23,10 @@ namespace Research.Dotnet5AndOdata.Controllers
 {
     public class StoresProjectedController : ControllerBase
     {
-        private readonly IMapper _mapper;
         private readonly MyContext _context;
 
-        public StoresProjectedController( IMapper mapper, MyContext context)
+        public StoresProjectedController(MyContext context)
         {
-            _mapper = mapper;
             _context = context;
         }
 
@@ -34,11 +36,18 @@ namespace Research.Dotnet5AndOdata.Controllers
         public IActionResult Get()
         {
             AddSampleDataToDb();
-            var result = _context.Stores.AsQueryable();
+            var query = _context.Stores.AsQueryable();
 
-            var resultModel = _mapper.ProjectTo<StoreModel>(result);
+            //var resultModel = _mapper.ProjectTo<StoreModel>(result);
 
-            Console.WriteLine(resultModel.Expression.ToReadableString());
+            var config = new TypeAdapterConfig().Default.PreserveReference(true).Config;
+            
+            var mapper = new Mapper(config);
+
+            var resultModel = mapper.From(query).ProjectToType<StoreModel>();
+
+            
+            //Console.WriteLine(resultModel.Expression.ToReadableString());
 
             return Ok(resultModel);
         }
@@ -99,3 +108,4 @@ namespace Research.Dotnet5AndOdata.Controllers
         }
     }
 }
+

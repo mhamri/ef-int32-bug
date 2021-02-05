@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using AutoMapper;
 using LinqKit;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,12 +13,10 @@ namespace Research.Dotnet5AndOdata.Controllers
 {
     public class StoresSimpleController : ControllerBase
     {
-        private readonly IMapper _mapper;
         private readonly MyContext _context;
 
-        public StoresSimpleController( IMapper mapper, MyContext context)
+        public StoresSimpleController( MyContext context)
         {
-            _mapper = mapper;
             _context = context;
         }
 

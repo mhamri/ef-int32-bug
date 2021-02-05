@@ -8,7 +8,7 @@
 
 1. use any of below links
 
-   - in `StoresProjectedController.cs` using automapper for projection to `IQueryable`. it throws error.
+   - in `StoresProjectedController.cs` using Mapster for projection to `IQueryable`. it throws error.
 
      > GET http://localhost:63273/odata/StoresProjected?$select=Id&$expand=owner($select=id) HTTP/1.1
 
@@ -17,48 +17,23 @@
 
 # stacktrace
 
+![error Image](./resources/error.png)
+
 ```
 
-System.InvalidOperationException: Rewriting child expression from type 'System.Int32' to type 'System.Nullable`1[System.Int32]' is not allowed, because it would change the meaning of the operation. If this is intentional, override 'VisitUnary' and change it to allow this rewrite.
-   at System.Linq.Expressions.ExpressionVisitor.ValidateChildType(Type before, Type after, String methodName)
-   at System.Linq.Expressions.ExpressionVisitor.ValidateUnary(UnaryExpression before, UnaryExpression after)
-   at System.Linq.Expressions.ExpressionVisitor.VisitMemberAssignment(MemberAssignment node)
-   at System.Linq.Expressions.ExpressionVisitor.VisitMemberBinding(MemberBinding node)
-   at System.Linq.Expressions.ExpressionVisitor.Visit[T](ReadOnlyCollection`1 nodes, Func`2 elementVisitor)
-   at System.Linq.Expressions.ExpressionVisitor.VisitMemberInit(MemberInitExpression node)
-   at System.Linq.Expressions.ExpressionVisitor.VisitMemberAssignment(MemberAssignment node)
-   at System.Linq.Expressions.ExpressionVisitor.VisitMemberBinding(MemberBinding node)
-   at System.Linq.Expressions.ExpressionVisitor.Visit[T](ReadOnlyCollection`1 nodes, Func`2 elementVisitor)
-   at System.Linq.Expressions.ExpressionVisitor.VisitMemberInit(MemberInitExpression node)
-   at System.Linq.Expressions.ExpressionVisitor.VisitMemberAssignment(MemberAssignment node)
-   at System.Linq.Expressions.ExpressionVisitor.VisitMemberBinding(MemberBinding node)
-   at System.Linq.Expressions.ExpressionVisitor.Visit[T](ReadOnlyCollection`1 nodes, Func`2 elementVisitor)
-   at System.Linq.Expressions.ExpressionVisitor.VisitMemberInit(MemberInitExpression node)
-   at System.Linq.Expressions.ExpressionVisitor.VisitMemberAssignment(MemberAssignment node)
-   at System.Linq.Expressions.ExpressionVisitor.VisitMemberBinding(MemberBinding node)
-   at System.Linq.Expressions.ExpressionVisitor.Visit[T](ReadOnlyCollection`1 nodes, Func`2 elementVisitor)
-   at System.Linq.Expressions.ExpressionVisitor.VisitMemberInit(MemberInitExpression node)
-   at System.Linq.Expressions.ExpressionVisitor.VisitLambda[T](Expression`1 node)
-   at System.Linq.Expressions.ExpressionVisitor.VisitUnary(UnaryExpression node)
-   at System.Dynamic.Utils.ExpressionVisitorUtils.VisitArguments(ExpressionVisitor visitor, IArgumentProvider nodes)
-   at System.Linq.Expressions.ExpressionVisitor.VisitMethodCall(MethodCallExpression node)
-   at Microsoft.EntityFrameworkCore.Query.Internal.QueryOptimizingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
-   at Microsoft.EntityFrameworkCore.Query.QueryTranslationPreprocessor.Process(Expression query)
-   at Microsoft.EntityFrameworkCore.Query.RelationalQueryTranslationPreprocessor.Process(Expression query)
-   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
-   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
-   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
-   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass12_0`1.<ExecuteAsync>b__0()
-   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
-   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteAsync[TResult](Expression query, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.ExecuteAsync[TResult](Expression expression, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1.GetAsyncEnumerator(CancellationToken cancellationToken)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.AsyncEnumerableReader.ReadInternal[T](Object value)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor.ExecuteAsyncEnumerable(ActionContext context, ObjectResult result, Object asyncEnumerable, Func`2 reader)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|29_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+System.IO.FileNotFoundException: Could not load file or assembly 'System.Interactive.Async, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263'. The system cannot find the file specified.
+File name: 'System.Interactive.Async, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263'
+   at Mapster.TypeAdapterBuilderExtensions.ProjectToType[TDestination](IAdapterBuilder`1 source)
+   at Research.Dotnet5AndOdata.Controllers.StoresProjectedController.Get() in C:\repo\forking\ef-int32-bug\src\Axceligent.Research.Dotnet5AndOdata\Controllers\StoresProjectedController.cs:line 47
+   at lambda_method12(Closure , Object , Object[] )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
 --- End of stack trace from previous location ---
    at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
    at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
