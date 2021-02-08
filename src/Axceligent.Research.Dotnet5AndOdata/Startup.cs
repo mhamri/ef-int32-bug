@@ -102,17 +102,20 @@ namespace Research.Dotnet5AndOdata
         }
     }
 
-    public class MyRegister : IRegister
+   
+}
+
+public class MyRegister1 : IRegister
+{
+    public void Register(TypeAdapterConfig config)
     {
-        public void Register(TypeAdapterConfig config)
-        {
-            Console.WriteLine("HOOOOOOOOOOOOOOOOOOOOOOOOO");
-            config.Default.PreserveReference(true);
-        }
+        Console.WriteLine("HOOOOOOOOOOOOOOOOOOOOOOOOO");
+        config.Default.PreserveReference(true);
+        config.Default.MaxDepth(2);
     }
 }
 
-public class MyRegister : ICodeGenerationRegister
+public class MyRegister2 : ICodeGenerationRegister
 {
     public void Register(CodeGenerationConfig config)
     {
@@ -120,13 +123,13 @@ public class MyRegister : ICodeGenerationRegister
 
         config.Default.PreserveReference(true);
 
-        //config.AdaptTo("[name]Dto")
-        //    .ForType<StoreModel>()
-        //    //.ForAllTypesInNamespace(Assembly.GetExecutingAssembly(), "Research.Dotnet5AndOdata")
-        //    ;
+        config.AdaptTo("[name]Dto")
+            .ForType<StoreModel>()
+            //.ForAllTypesInNamespace(Assembly.GetExecutingAssembly(), "Research.Dotnet5AndOdata")
+            ;
 
-        //config.GenerateMapper("[name]Mapper")
-        //    .ForType<StoreModel>();
+        config.GenerateMapper("[name]Mapper")
+            .ForType<StoreModel>();
 
     }
 }

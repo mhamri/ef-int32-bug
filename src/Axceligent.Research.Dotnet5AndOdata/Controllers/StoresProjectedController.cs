@@ -40,7 +40,7 @@ namespace Research.Dotnet5AndOdata.Controllers
 
             //var resultModel = _mapper.ProjectTo<StoreModel>(result);
 
-            var config = new TypeAdapterConfig().Default.PreserveReference(true).Config;
+            var config = new TypeAdapterConfig().Default.PreserveReference(true).MaxDepth(2).Config;
             
             var mapper = new Mapper(config);
 
