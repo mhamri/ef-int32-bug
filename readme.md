@@ -15,6 +15,11 @@
    - in `StoresSimpleController.cs` converting dbset directly and converting it to `IQueryable` and it works just fine
      > GET http://localhost:63273/odata/StoresSimple?$select=Id&$expand=owner($select=id) HTTP/1.1
 
+# test in ef5 and ef 3
+
+you can change between the package to see the same thing with same version of automapper and Odata is working in ef3 but not ef 5
+![setting for ef 3 and ef5](./config.png)
+
 # stacktrace
 
 ```
